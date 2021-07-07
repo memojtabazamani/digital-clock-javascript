@@ -1,8 +1,18 @@
 var nowDate = new Date();
 
-var oldHour    = nowDate.getHours().toString();
-var oldMinutes = nowDate.getMinutes().toString();
-var oldSeconds = nowDate.getSeconds().toString();
+var oldHour    = nowDate.getHours();
+var oldMinutes = nowDate.getMinutes();
+var oldSeconds = nowDate.getSeconds();
+
+if(oldSeconds <  10) {
+    oldSeconds = "0" + oldSeconds;
+}
+if(oldMinutes < 10) {
+    oldMinutes = "0" + oldMinutes;
+}
+if(oldHour < 10) {
+    oldHour = "0" + oldHour;
+}
 
 const hours_1 = document.getElementById("hours_1");
 const hours_2 = document.getElementById("hours_2");
@@ -13,94 +23,69 @@ const minutes_2 = document.getElementById("minutes_2");
 const seconds_1 = document.getElementById("second_1");
 const seconds_2 = document.getElementById("second_2");
 
-var myTime =
-    {
-        "hours": [
-            {"number1": oldHour[0]},
-            {"number2": oldHour[1]}
-        ],
-        "minutes": [
-            {"number1": oldMinutes[0]},
-            {"number2": oldMinutes[1]}
-        ],
-        "seconds": [
-            {
-                "number1": oldSeconds[0]},
-            {"number2": oldSeconds[1]}
-        ]
-    }
+oldSeconds = oldSeconds.toString();
+oldMinutes = oldMinutes.toString();
+oldHour    = oldHour.toString();
 
-seconds_1.innerHTML = myTime.seconds[0].number1;
-seconds_2.innerHTML = myTime.seconds[1].number2;
+seconds_1.innerHTML = oldSeconds[0];
+seconds_2.innerHTML = oldSeconds[1];
 
-minutes_1.innerHTML = myTime.minutes[0].number1;
-minutes_2.innerHTML = myTime.minutes[1].number2;
+minutes_1.innerHTML = oldMinutes[0];
+minutes_2.innerHTML = oldMinutes[1];
 
-hours_1.innerHTML = myTime.hours[0].number1;
-hours_2.innerHTML = myTime.hours[1].number2;
+hours_1.innerHTML   = oldHour[0];
+hours_2.innerHTML   = oldHour[1];
 
 function setTime() {
-    nowDate = new Date();
-
-    // oldSeconds = nowDate.getSeconds().toString();
-    //
-
-
-    // Set Seconds
-    if(nowDate.getSeconds().toString() != oldSeconds) {
-        console.log("length : " + oldSeconds.length)
-        if(oldSeconds.length == 1) {
-            seconds_1.innerHTML = myTime.seconds[0].number1;
-            seconds_2.innerHTML = myTime.seconds[1].number2;
-        }
-        else {
-            console.log(oldSeconds);
-            console.log(myTime.seconds[0].number1);
-            if(myTime.seconds[0].number1 != oldSeconds[0]) {
-                seconds_1.innerHTML = oldSeconds[0];
-            }
-            else {
-                seconds_2.innerHTML = oldSeconds[1];
-            }
-        }
-
-
+    oldSeconds++;
+    if(oldSeconds < 10) { // Check be a
+        oldSeconds = "0" + oldSeconds;
     }
-    // // Set Minutes
-    // if(nowDate.getMinutes().toString() != oldMinutes) {
-    //     minutes_1.innerHTML = myTime.minutes[0].number1;
-    //     minutes_2.innerHTML = myTime.minutes[1].number2;
-    // }
-    // // Set Hours
-    // if(nowDate.getSeconds().toString() != oldHour) {
-    //     hours_1.innerHTML = myTime.hours[0].number1;
-    //     hours_2.innerHTML = myTime.hours[1].number2;
-    // }
-
-    oldHour    = nowDate.getHours().toString();
-    oldMinutes = nowDate.getMinutes().toString();
-    oldSeconds = nowDate.getSeconds().toString();
-    oldHour = oldHour.length == 1 ?  "0" + oldHour[0] :  oldHour;
-    oldMinutes = oldMinutes.length == 1 ?  "0" + oldMinutes[0] :  oldMinutes;
-    console.log(oldSeconds);
-    oldSeconds = oldSeconds.length == 1 ? "0" + oldSeconds[0] :  oldSeconds;
-
-    myTime =
-        {
-            "hours": [
-                {"number1": oldHour[0]},
-                {"number2": oldHour[1]}
-            ],
-            "minutes": [
-                {"number1": oldMinutes[0]},
-                {"number2": oldMinutes[1]}
-            ],
-            "seconds": [
-                {
-                    "number1": oldSeconds[0]},
-                {"number2": oldSeconds[1]}
-            ]
+    if(oldSeconds == 60) {
+        oldSeconds = "00";
+        oldMinutes++;
+        if(oldMinutes < 10) {
+            oldMinutes = "0" + oldMinutes;
         }
+    }
+    if(oldMinutes == 60) {
+        oldMinutes = "00";
+        oldHour++;
+        if(oldHour < 10) {
+            oldHour = "0" + oldHour;
+        }
+    }
+    if(oldHour == 24) {
+        oldHour = "00";
+    }
+    oldSeconds = oldSeconds.toString();
+    seconds_1.innerHTML = oldSeconds[0];
+    seconds_2.innerHTML = oldSeconds[1];
+
+
+    oldMinutes = oldMinutes.toString()
+    minutes_1.innerHTML = oldMinutes[0];
+    minutes_2.innerHTML = oldMinutes[1];
+
+
+    oldHour    = oldHour.toString();
+    hours_1.innerHTML   = oldHour[0];
+    hours_2.innerHTML   = oldHour[1];
 }
 
+
+function setNewTime() {
+    console.log("Seconds : "  + oldSeconds);
+    console.log("Minutes : " + oldMinutes);
+    console.log("Hour : " + oldHour);
+
+
+
+
+
+
+
+
+
+}
 setInterval(setTime, 1000);
